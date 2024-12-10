@@ -1,7 +1,9 @@
 package com.northcoders.calculatorapp;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,13 +19,15 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
     Button add;
-
+    Button subtract;
+    Button multiply;
     Button clear;
     EditText num1;
     EditText num2;
     TextView result;
     String TAG = "button";
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         Log.i("test", "onCreate: ");
 
         add = findViewById(R.id.button);
+        subtract = findViewById(R.id.subtractButton); //
+        multiply = findViewById(R.id.multiplyButton);
+
         num1 = findViewById(R.id.editTextNumber);
         num2 = findViewById(R.id.editTextNumber2);
         result = findViewById(R.id.textView6);
@@ -50,22 +57,58 @@ public class MainActivity extends AppCompatActivity {
                 addNumbers();
             }
         });
+
+        subtract.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "subtract button has been clicked");
+
+                subtractNumbers();
+
+            }
+        });
+
+        multiply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                multiplyNumbers();
+            }
+        });
+
         clear.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "clear button has been pressed");
+                Log.i(TAG, "clear button has been clicked");
 
                 clearScreen();
-
             }
         });
 
     }
 
-    public void addNumbers() {
+    private void multiplyNumbers() {
 
-        if(!num1.getText().toString().isBlank() && !num2.getText().toString().isBlank()){
+        if(checkNumbers()){
+            int intResult = Integer.parseInt(num1.getText().toString()) * Integer.parseInt(num2.getText().toString());
+            result.setText(String.valueOf(intResult));
+        }
+    }
+
+    public void addNumbers() {
+        if(checkNumbers()){
             int intResult = Integer.parseInt(num1.getText().toString()) + Integer.parseInt(num2.getText().toString());
+            result.setText(String.valueOf(intResult));
+        }
+    }
+
+    public Boolean checkNumbers(){
+        return (!num1.getText().toString().isBlank() && !num2.getText().toString().isBlank());
+    }
+
+    public void subtractNumbers(){
+        if(checkNumbers()){
+            int intResult = Integer.parseInt(num1.getText().toString()) - Integer.parseInt(num2.getText().toString());
             result.setText(String.valueOf(intResult));
         }
     }
