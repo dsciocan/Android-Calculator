@@ -17,6 +17,8 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
     Button add;
+
+    Button clear;
     EditText num1;
     EditText num2;
     TextView result;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         num1 = findViewById(R.id.editTextNumber);
         num2 = findViewById(R.id.editTextNumber2);
         result = findViewById(R.id.textView6);
+        clear = findViewById(R.id.clearButton);
         add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i(TAG, "the button has been clicked");
@@ -47,12 +50,31 @@ public class MainActivity extends AppCompatActivity {
                 addNumbers();
             }
         });
+        clear.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "clear button has been pressed");
 
+                clearScreen();
+
+            }
+        });
 
     }
 
     public void addNumbers() {
-        int intResult = Integer.parseInt(num1.getText().toString()) + Integer.parseInt(num2.getText().toString());
-        result.setText(String.valueOf(intResult));
+
+        if(!num1.getText().toString().isBlank() && !num2.getText().toString().isBlank()){
+            int intResult = Integer.parseInt(num1.getText().toString()) + Integer.parseInt(num2.getText().toString());
+            result.setText(String.valueOf(intResult));
+        }
     }
+
+    public void clearScreen(){
+        num1.getText().clear();
+        num2.getText().clear();
+        result.setText(" ");
+    }
+
+
 }
