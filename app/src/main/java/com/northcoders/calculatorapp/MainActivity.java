@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     Button add;
     Button subtract;
     Button multiply;
+    Button divide;
     Button clear;
     EditText num1;
     EditText num2;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         add = findViewById(R.id.button);
         subtract = findViewById(R.id.subtractButton); //
         multiply = findViewById(R.id.multiplyButton);
+        divide = findViewById(R.id.divideButton);
 
         num1 = findViewById(R.id.editTextNumber);
         num2 = findViewById(R.id.editTextNumber2);
@@ -73,6 +75,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 multiplyNumbers();
+            }
+        });
+
+        divide.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                divideNumbers();
             }
         });
 
@@ -110,6 +120,13 @@ public class MainActivity extends AppCompatActivity {
         if(checkNumbers()){
             int intResult = Integer.parseInt(num1.getText().toString()) - Integer.parseInt(num2.getText().toString());
             result.setText(String.valueOf(intResult));
+        }
+    }
+
+    public void divideNumbers() {
+        if(checkNumbers() && Integer.parseInt(num2.getText().toString()) != 0) {
+            double doubleResult = (double) Integer.parseInt(num1.getText().toString()) / Integer.parseInt(num2.getText().toString());
+            result.setText(String.valueOf(doubleResult));
         }
     }
 
